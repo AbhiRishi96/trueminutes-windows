@@ -1,0 +1,23 @@
+<Window
+    x:Class="TrueMinutes.Windows.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:shell="using:TrueMinutes.Windows.UI.Shell"
+    Title="TrueMinutes">
+
+    <!-- Background extends behind the title bar for the dark/immersive look -->
+    <Grid Background="{StaticResource BgApp}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>  <!-- recording mini-bar (visible only while recording) -->
+            <RowDefinition Height="*"/>     <!-- navigation shell -->
+        </Grid.RowDefinitions>
+
+        <!-- ── Recording Mini-Bar ── mirrors macOS recording mini-bar at top ── -->
+        <shell:RecordingMiniBar x:Name="MiniBar"
+            Grid.Row="0"
+            Visibility="Collapsed"/>
+
+        <!-- ── Main Navigation Shell ── -->
+        <shell:MainShellPage Grid.Row="1" x:Name="Shell"/>
+    </Grid>
+</Window>

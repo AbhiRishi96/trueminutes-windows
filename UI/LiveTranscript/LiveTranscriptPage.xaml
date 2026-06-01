@@ -1,0 +1,74 @@
+<Page
+    x:Class="TrueMinutes.Windows.UI.LiveTranscript.LiveTranscriptPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="{StaticResource BgApp}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>   <!-- meeting title + timer -->
+            <RowDefinition Height="*"/>      <!-- paragraph transcript -->
+            <RowDefinition Height="Auto"/>   <!-- live tail + waveform -->
+        </Grid.RowDefinitions>
+
+        <!-- ── Recording Header ── -->
+        <Border Grid.Row="0" Padding="24,16"
+                Background="{StaticResource BgElevated}"
+                BorderBrush="{StaticResource BorderSubtle}"
+                BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Spacing="4">
+                    <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <!-- Pulsing record dot -->
+                        <Ellipse x:Name="RecDot" Width="10" Height="10"
+                                 Fill="{StaticResource Recording}"
+                                 VerticalAlignment="Center"/>
+                        <TextBlock Text="RECORDING" FontSize="10"
+                                   FontWeight="SemiBold"
+                                   CharacterSpacing="120"
+                                   Foreground="{StaticResource Recording}"/>
+                    </StackPanel>
+                    <TextBlock x:Name="MeetingTitleText"
+                               FontSize="18" FontWeight="SemiBold"
+                               Foreground="{StaticResource TextPrimary}"
+                               TextTrimming="CharacterEllipsis"/>
+                    <TextBlock x:Name="ElapsedText" FontSize="24"
+                               FontFamily="Consolas"
+                               Foreground="{StaticResource TextPrimary}"
+                               FontWeight="SemiBold"/>
+                </StackPanel>
+
+                <Button Grid.Column="1"
+                        Style="{StaticResource RecordingButtonStyle}"
+                        Content="Stop Recording"
+                        Padding="20,10"
+                        Click="OnStopRecording"
+                        VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- ── Paragraph Transcript ── -->
+        <ScrollViewer Grid.Row="1" x:Name="TranscriptScroll"
+                      Padding="24,16">
+            <StackPanel x:Name="ParagraphsPanel" Spacing="16"/>
+        </ScrollViewer>
+
+        <!-- ── Live Tail (newest unflushed segments) ── -->
+        <Border Grid.Row="2"
+                Background="{StaticResource BgOverlay}"
+                BorderBrush="{StaticResource BorderSubtle}"
+                BorderThickness="0,1,0,0"
+                Padding="24,12" MinHeight="60">
+            <TextBlock x:Name="LiveTailText"
+                       FontSize="13" FontStyle="Italic"
+                       Foreground="{StaticResource TextTertiary}"
+                       TextWrapping="Wrap"
+                       Text="Listening…"/>
+        </Border>
+    </Grid>
+</Page>

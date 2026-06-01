@@ -1,0 +1,50 @@
+<UserControl
+    x:Class="TrueMinutes.Windows.UI.Shell.RecordingMiniBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Height="44">
+
+    <!-- Recording mini-bar — pinned at top of every section while recording.
+         Mirrors macOS recordingMiniBar: pulsing dot, timer, waveform, Live/Stop buttons. -->
+    <Border Background="#1A0A0A"
+            BorderBrush="{StaticResource Recording}"
+            BorderThickness="0,0,0,1">
+        <Grid Padding="16,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>  <!-- dot + Recording + timer -->
+                <ColumnDefinition Width="*"/>     <!-- waveform spacer -->
+                <ColumnDefinition Width="Auto"/>  <!-- actions -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Left: pulsing dot + label + elapsed -->
+            <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                <Ellipse x:Name="RecordingDot" Width="8" Height="8"
+                         Fill="{StaticResource Recording}"
+                         VerticalAlignment="Center"/>
+                <TextBlock Text="Recording"
+                           FontSize="12" FontWeight="SemiBold"
+                           Foreground="{StaticResource Recording}"
+                           VerticalAlignment="Center"/>
+                <TextBlock x:Name="ElapsedText"
+                           Text="0:00"
+                           FontSize="12" FontFamily="Consolas"
+                           Foreground="{StaticResource Recording}"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Right: Live Transcript link + Stop button -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8"
+                        VerticalAlignment="Center">
+                <HyperlinkButton Content="Live Transcript →"
+                                 FontSize="11"
+                                 Foreground="{StaticResource Recording}"
+                                 Click="OnLiveTranscriptClick"
+                                 Padding="0"/>
+                <Button Content="Stop"
+                        Style="{StaticResource RecordingButtonStyle}"
+                        FontSize="11" Padding="12,4"
+                        Click="OnStopClick"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

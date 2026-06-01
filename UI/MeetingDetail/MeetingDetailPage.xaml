@@ -1,0 +1,130 @@
+<Page
+    x:Class="TrueMinutes.Windows.UI.MeetingDetail.MeetingDetailPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="{StaticResource BgApp}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>   <!-- header -->
+            <RowDefinition Height="Auto"/>   <!-- tab bar -->
+            <RowDefinition Height="*"/>      <!-- content -->
+        </Grid.RowDefinitions>
+
+        <!-- ── Header ── -->
+        <Border Grid.Row="0" Padding="32,20,32,12"
+                Background="{StaticResource BgApp}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>   <!-- back -->
+                    <ColumnDefinition Width="*"/>      <!-- title block -->
+                    <ColumnDefinition Width="Auto"/>   <!-- toolbar -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Back button -->
+                <Button Grid.Row="0" Grid.Column="0" Content="←"
+                        FontSize="18" Background="Transparent"
+                        Foreground="{StaticResource TextSecondary}"
+                        Click="OnBack" Margin="0,0,12,0"
+                        VerticalAlignment="Center"/>
+
+                <!-- Title + date + category -->
+                <StackPanel Grid.Row="0" Grid.Column="1" Spacing="4" VerticalAlignment="Center">
+                    <TextBox x:Name="TitleBox"
+                             PlaceholderText="Meeting title"
+                             FontSize="22" FontWeight="SemiBold"
+                             BorderThickness="0"
+                             Background="Transparent"
+                             Foreground="{StaticResource TextPrimary}"
+                             LostFocus="OnTitleChanged"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock x:Name="DateLabel" FontSize="13"
+                                   Foreground="{StaticResource TextSecondary}"/>
+                        <Border x:Name="CategoryPill"
+                                Style="{StaticResource CategoryPillStyle}"
+                                Visibility="Collapsed">
+                            <TextBlock x:Name="CategoryLabel" FontSize="10"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource Accent}"/>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Toolbar: Regenerate + Share -->
+                <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal"
+                            Spacing="8" VerticalAlignment="Center">
+                    <Button x:Name="RegenerateBtn" Content="Regenerate"
+                            Click="OnRegenerate"
+                            Background="{StaticResource BgElevated}"
+                            Foreground="{StaticResource TextPrimary}"
+                            CornerRadius="{StaticResource RadiusMd}"
+                            BorderBrush="{StaticResource BorderDefault}"
+                            BorderThickness="1" Padding="12,6"/>
+                    <SplitButton Content="Share" Click="OnCopySummary"
+                                 Background="{StaticResource BgElevated}"
+                                 Foreground="{StaticResource TextPrimary}"
+                                 CornerRadius="{StaticResource RadiusMd}"
+                                 BorderBrush="{StaticResource BorderDefault}"
+                                 BorderThickness="1" Padding="12,6">
+                        <SplitButton.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Text="Copy summary" Click="OnCopySummary"/>
+                                <MenuFlyoutItem Text="Export as PDF…" Click="OnExportPdf"/>
+                                <MenuFlyoutItem Text="Copy transcript" Click="OnCopyTranscript"/>
+                                <MenuFlyoutSeparator/>
+                                <MenuFlyoutItem Text="Export to Notion" Click="OnExportNotion"/>
+                            </MenuFlyout>
+                        </SplitButton.Flyout>
+                    </SplitButton>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ── Tab Bar ── -->
+        <Border Grid.Row="1"
+                BorderBrush="{StaticResource BorderSubtle}"
+                BorderThickness="0,0,0,1"
+                Padding="32,0">
+            <StackPanel Orientation="Horizontal" Spacing="4">
+                <RadioButton x:Name="SummaryTab" Content="Summary"
+                             GroupName="DetailTabs" IsChecked="True"
+                             Style="{StaticResource DefaultRadioButtonStyle}"
+                             Checked="OnTabChanged"/>
+                <RadioButton x:Name="TranscriptTab" Content="Transcript"
+                             GroupName="DetailTabs"
+                             Checked="OnTabChanged"/>
+                <RadioButton x:Name="NotesTab" Content="Notes"
+                             GroupName="DetailTabs"
+                             Checked="OnTabChanged"/>
+            </StackPanel>
+        </Border>
+
+        <!-- ── Content ── -->
+        <ScrollViewer Grid.Row="2" Padding="32,16">
+            <!-- Summary tab -->
+            <StackPanel x:Name="SummaryContent" Spacing="16">
+                <TextBlock x:Name="SummaryText"
+                           Style="{StaticResource CaptionStyle}"
+                           FontSize="14"
+                           Foreground="{StaticResource TextPrimary}"
+                           TextWrapping="Wrap" LineHeight="22"/>
+
+                <StackPanel x:Name="ActionItemsPanel" Spacing="4" Visibility="Collapsed">
+                    <TextBlock Style="{StaticResource SectionHeaderStyle}"
+                               Text="ACTION ITEMS"/>
+                    <ItemsControl x:Name="ActionItemsList"/>
+                </StackPanel>
+
+                <StackPanel x:Name="DecisionsPanel" Spacing="4" Visibility="Collapsed">
+                    <TextBlock Style="{StaticResource SectionHeaderStyle}"
+                               Text="DECISIONS"/>
+                    <ItemsControl x:Name="DecisionsList"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

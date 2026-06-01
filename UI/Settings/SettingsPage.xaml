@@ -1,0 +1,161 @@
+<Page
+    x:Class="TrueMinutes.Windows.UI.Settings.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="{StaticResource BgApp}">
+
+    <ScrollViewer>
+        <StackPanel Padding="32,24" Spacing="20" MaxWidth="640">
+
+            <TextBlock Text="Settings" Style="{StaticResource HeadingStyle}"/>
+
+            <!-- ══ Profile ══ -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="PROFILE &amp; TRANSCRIPTION" Style="{StaticResource SectionHeaderStyle}"/>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Your name in transcripts" Style="{StaticResource SubheadStyle}"/>
+                        <TextBox x:Name="DisplayNameBox" PlaceholderText="Your name"
+                                 LostFocus="OnDisplayNameChanged"/>
+                        <TextBlock Text="Shown on your microphone lines."
+                                   Style="{StaticResource CaptionStyle}"/>
+                    </StackPanel>
+
+                    <Border Style="{StaticResource SeparatorStyle}"/>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Language mode" Style="{StaticResource SubheadStyle}"/>
+                        <ComboBox x:Name="LanguageModeBox" SelectionChanged="OnLanguageModeChanged"
+                                  HorizontalAlignment="Stretch">
+                            <ComboBoxItem Tag="translateToEnglish" Content="Translate to English (recommended — handles English, Hindi, Hinglish)"/>
+                            <ComboBoxItem Tag="english"            Content="English (forced — fastest)"/>
+                            <ComboBoxItem Tag="hinglish"           Content="Hinglish / mixed (multilingual, output in source language)"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <Border Style="{StaticResource SeparatorStyle}"/>
+
+                    <!-- Whisper model picker -->
+                    <StackPanel Spacing="6">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="Transcription model" Style="{StaticResource SubheadStyle}"/>
+                            <TextBlock x:Name="HardwareSummary" FontSize="11"
+                                       Foreground="{StaticResource TextTertiary}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <ItemsControl x:Name="ModelList" Margin="0,4,0,0"/>
+                    </StackPanel>
+
+                    <Border Style="{StaticResource SeparatorStyle}"/>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Chunk length" Style="{StaticResource SubheadStyle}"/>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <Slider x:Name="ChunkSlider" Minimum="10" Maximum="30" StepFrequency="5"
+                                    Width="200" ValueChanged="OnChunkChanged"/>
+                            <TextBlock x:Name="ChunkLabel" FontSize="13"
+                                       Foreground="{StaticResource TextSecondary}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="Longer chunks capture fuller thoughts for cleaner paragraphs."
+                                   Style="{StaticResource CaptionStyle}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- ══ Summarization ══ -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="SUMMARIZATION" Style="{StaticResource SectionHeaderStyle}"/>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Engine" Style="{StaticResource SubheadStyle}"/>
+                        <ComboBox x:Name="SummarizerBox" SelectionChanged="OnSummarizerChanged"
+                                  HorizontalAlignment="Stretch">
+                            <ComboBoxItem Tag="ollama"     Content="Ollama (local, recommended)"/>
+                            <ComboBoxItem Tag="openai"     Content="ChatGPT (OpenAI)"/>
+                            <ComboBoxItem Tag="anthropic"  Content="Claude (Anthropic)"/>
+                            <ComboBoxItem Tag="groq"       Content="Groq"/>
+                            <ComboBoxItem Tag="openrouter" Content="OpenRouter"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel x:Name="OllamaSection" Spacing="6">
+                        <TextBlock Text="Ollama model" Style="{StaticResource SubheadStyle}"/>
+                        <TextBox x:Name="OllamaModelBox" PlaceholderText="qwen2.5:7b"
+                                 LostFocus="OnOllamaModelChanged"/>
+                        <Button Content="Test connection" Click="OnTestOllama"
+                                Background="{StaticResource BgOverlay}"
+                                Foreground="{StaticResource TextPrimary}"
+                                CornerRadius="{StaticResource RadiusMd}"
+                                BorderBrush="{StaticResource BorderDefault}"
+                                BorderThickness="1" Padding="12,6"/>
+                        <TextBlock x:Name="OllamaStatus" Style="{StaticResource CaptionStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel x:Name="ApiKeySection" Spacing="6" Visibility="Collapsed">
+                        <TextBlock Text="API key" Style="{StaticResource SubheadStyle}"/>
+                        <PasswordBox x:Name="ApiKeyBox" PlaceholderText="sk-…"
+                                     PasswordChanged="OnApiKeyChanged"/>
+                        <TextBlock Text="Stored in Windows Credential Manager (DPAPI encrypted)."
+                                   Style="{StaticResource CaptionStyle}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- ══ Appearance ══ -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="APPEARANCE" Style="{StaticResource SectionHeaderStyle}"/>
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Theme" Style="{StaticResource SubheadStyle}"/>
+                        <ComboBox x:Name="ThemeBox" SelectionChanged="OnThemeChanged"
+                                  HorizontalAlignment="Stretch">
+                            <ComboBoxItem Tag="dark"   Content="Dark (default)"/>
+                            <ComboBoxItem Tag="light"  Content="Light"/>
+                            <ComboBoxItem Tag="system" Content="Follow system"/>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- ══ Capture ══ -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="CAPTURE" Style="{StaticResource SectionHeaderStyle}"/>
+                    <ToggleSwitch x:Name="CaptureLocalMic"
+                                  Header="Also record microphone"
+                                  Toggled="OnMicToggled"/>
+                    <TextBlock Text="Off: record only meeting app audio. Your mic is only captured when you speak."
+                               Style="{StaticResource CaptionStyle}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ══ Privacy ══ -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="PRIVACY" Style="{StaticResource SectionHeaderStyle}"/>
+                    <ToggleSwitch x:Name="LocalOnlyToggle"
+                                  Header="Local-only mode"
+                                  Toggled="OnLocalOnlyToggled"/>
+                    <TextBlock Text="Prevent any transcript or audio from leaving your machine. Forces Ollama summarization."
+                               Style="{StaticResource CaptionStyle}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ══ About ══ -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="ABOUT" Style="{StaticResource SectionHeaderStyle}"/>
+                    <TextBlock Text="TrueMinutes for Windows" Style="{StaticResource SubheadStyle}"/>
+                    <TextBlock Text="Version 0.9.0 · Local, bot-free meeting transcription"
+                               Style="{StaticResource CaptionStyle}"/>
+                    <HyperlinkButton Content="View on GitHub"
+                                     NavigateUri="https://github.com/AbhiRishi96/trueminutes-windows"
+                                     Foreground="{StaticResource Accent}"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

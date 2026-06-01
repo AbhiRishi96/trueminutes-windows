@@ -30,7 +30,15 @@ public static class TranscriptionSettings
         set => SetString("LanguageMode", value);
     }
 
+    // ---- Public string read/write (used by SettingsPage) ----
+
+    public static string GetString(string key, string @default) =>
+        Cache.TryGetValue(key, out var v) ? v : @default;
+
+    public static void SetString(string key, string value) { Cache[key] = value; Save(); }
+
     // ---- simple file-backed store (replace with Windows registry or EF Core UserSettings) ----
+    // NOTE: GetString/SetString are public above; GetDouble/SetDouble/Save/Cache remain private.
 
     private static readonly string SettingsPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
@@ -65,11 +73,6 @@ public static class TranscriptionSettings
         }
         catch { }
     }
-
-    private static string GetString(string key, string @default) =>
-        Cache.TryGetValue(key, out var v) ? v : @default;
-
-    private static void SetString(string key, string value) { Cache[key] = value; Save(); }
 
     private static double GetDouble(string key, double @default) =>
         Cache.TryGetValue(key, out var v) && double.TryParse(v, out var d) ? d : @default;

@@ -1,0 +1,97 @@
+<UserControl
+    x:Class="TrueMinutes.Windows.UI.Shell.MainShellPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:shell="using:TrueMinutes.Windows.UI.Shell">
+
+    <!-- NavigationView — mirrors macOS NavigationSplitView with sidebar -->
+    <NavigationView x:Name="NavView"
+        PaneDisplayMode="Left"
+        IsBackButtonVisible="Collapsed"
+        IsPaneToggleButtonVisible="False"
+        OpenPaneLength="220"
+        CompactModeThresholdWidth="0"
+        SelectionChanged="OnNavSelectionChanged"
+        Background="{StaticResource BgApp}">
+
+        <!-- Custom Pane Header: TrueMinutes brand -->
+        <NavigationView.PaneHeader>
+            <Border Background="{StaticResource SidebarHeaderGradient}"
+                    Padding="16,12">
+                <StackPanel Spacing="2">
+                    <TextBlock Text="TrueMinutes"
+                               FontSize="16" FontWeight="SemiBold"
+                               Foreground="{StaticResource TextPrimary}"/>
+                    <TextBlock Text="Local meeting notes"
+                               FontSize="11"
+                               Foreground="{StaticResource TextSecondary}"/>
+                </StackPanel>
+            </Border>
+        </NavigationView.PaneHeader>
+
+        <!-- Navigation items -->
+        <NavigationView.MenuItems>
+            <!-- Live Transcript (only shown while recording) -->
+            <NavigationViewItem x:Name="LiveNavItem"
+                Tag="Live"
+                Visibility="Collapsed">
+                <NavigationViewItem.Content>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon Glyph="&#xE8D4;" FontSize="14"
+                                  Foreground="{StaticResource Recording}"/>
+                        <TextBlock Text="Live Transcript"
+                                   Foreground="{StaticResource Recording}"
+                                   FontWeight="Medium"/>
+                    </StackPanel>
+                </NavigationViewItem.Content>
+            </NavigationViewItem>
+
+            <NavigationViewItem Tag="Meetings" Content="Meetings">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE7C3;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+
+            <NavigationViewItem Tag="Ask" Content="Ask">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE721;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+
+        <!-- Settings at the bottom -->
+        <NavigationView.FooterMenuItems>
+            <NavigationViewItem Tag="Settings" Content="Settings">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE713;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.FooterMenuItems>
+
+        <!-- Sidebar footer: status dot + label -->
+        <NavigationView.PaneFooter>
+            <Border Margin="12,0,12,12" Padding="12,10"
+                    Background="{StaticResource BgOverlay}"
+                    CornerRadius="{StaticResource RadiusMd}"
+                    BorderBrush="{StaticResource BorderSubtle}"
+                    BorderThickness="1">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Ellipse x:Name="StatusDot" Width="8" Height="8"
+                             Fill="{StaticResource TextTertiary}"
+                             VerticalAlignment="Center"/>
+                    <TextBlock x:Name="StatusLabel"
+                               Text="Idle"
+                               FontSize="11"
+                               Foreground="{StaticResource TextSecondary}"
+                               VerticalAlignment="Center"
+                               TextWrapping="Wrap"
+                               MaxWidth="140"/>
+                </StackPanel>
+            </Border>
+        </NavigationView.PaneFooter>
+
+        <!-- Content frame -->
+        <Frame x:Name="ContentFrame"
+               Background="{StaticResource BgApp}"/>
+    </NavigationView>
+</UserControl>
