@@ -1,0 +1,12 @@
+bin/
+obj/
+.vs/
+.vscode/
+*.user
+*.suo
+*.cache
+*.pdb
+*.nupkg
+TestResults/
+publish/
+.DS_Store
