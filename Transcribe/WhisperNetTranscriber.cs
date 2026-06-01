@@ -43,7 +43,10 @@ public sealed class WhisperNetTranscriber : ITranscriber
         if (!File.Exists(modelFile))
         {
             Console.WriteLine($"Downloading Whisper model {modelType}…");
-            await using var modelStream = await WhisperGgmlDownloader.GetGgmlModelAsync(modelType, ct);
+            await using var modelStream = await WhisperGgmlDownloader.GetGgmlModelAsync(
+                modelType,
+                QuantizationType.NoQuantization,
+                ct);
             await using var fs = File.Create(modelFile);
             await modelStream.CopyToAsync(fs, ct);
         }
