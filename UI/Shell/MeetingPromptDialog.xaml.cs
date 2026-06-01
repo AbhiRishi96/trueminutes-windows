@@ -26,7 +26,7 @@ public sealed class MeetingPromptDialog : ContentDialog
                 Text = signal.MeetingTitle,
                 FontSize = 13,
                 Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(
-                    Windows.UI.Color.FromArgb(255, 168, 168, 164))
+                    global::Windows.UI.Color.FromArgb(255, 168, 168, 164))
             });
         }
 
@@ -35,7 +35,7 @@ public sealed class MeetingPromptDialog : ContentDialog
             Text = "Recording stays on your device. Nothing joins the call.",
             FontSize = 11,
             Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(
-                Windows.UI.Color.FromArgb(255, 115, 115, 112))
+                global::Windows.UI.Color.FromArgb(255, 115, 115, 112))
         });
 
         Content = countdown;

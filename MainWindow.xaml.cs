@@ -1,7 +1,9 @@
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using TrueMinutes.Windows.App;
+using TrueMinutes.Windows.Detect;
 using TrueMinutes.Windows.UI.FloatingPill;
 using Windows.Graphics;
 
@@ -9,7 +11,7 @@ namespace TrueMinutes.Windows;
 
 public sealed partial class MainWindow : Window
 {
-    private static readonly AppState State = App.State;
+    private static readonly AppState State = TrueMinutesApp.State;
     private FloatingPillWindow? _floatingPill;
 
     public MainWindow()
@@ -27,9 +29,9 @@ public sealed partial class MainWindow : Window
             var tb = AppWindow.TitleBar;
             tb.ExtendsContentIntoTitleBar = true;
             tb.ButtonBackgroundColor         = Colors.Transparent;
-            tb.ButtonForegroundColor         = Windows.UI.Color.FromArgb(255, 242, 242, 240);
+            tb.ButtonForegroundColor         = global::Windows.UI.Color.FromArgb(255, 242, 242, 240);
             tb.ButtonInactiveBackgroundColor = Colors.Transparent;
-            tb.ButtonHoverBackgroundColor    = Windows.UI.Color.FromArgb(30, 255, 255, 255);
+            tb.ButtonHoverBackgroundColor    = global::Windows.UI.Color.FromArgb(30, 255, 255, 255);
         }
 
         // Wire recording state to mini-bar + floating pill.

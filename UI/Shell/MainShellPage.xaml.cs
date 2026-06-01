@@ -11,7 +11,7 @@ namespace TrueMinutes.Windows.UI.Shell;
 
 public sealed partial class MainShellPage : UserControl
 {
-    private static readonly AppState State = App.State;
+    private static readonly AppState State = TrueMinutesApp.State;
 
     public MainShellPage()
     {
@@ -79,11 +79,11 @@ public sealed partial class MainShellPage : UserControl
         StatusDot.Fill = State.Status switch
         {
             AppState.AppStatus.Recording   => new SolidColorBrush(Colors.Red),
-            AppState.AppStatus.Detecting   => new SolidColorBrush(Windows.UI.Color.FromArgb(255, 110, 86, 247)),
-            AppState.AppStatus.Summarizing => new SolidColorBrush(Windows.UI.Color.FromArgb(255, 47, 128, 237)),
-            AppState.AppStatus.Stopping    => new SolidColorBrush(Windows.UI.Color.FromArgb(255, 217, 119, 6)),
+            AppState.AppStatus.Detecting   => new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 110, 86, 247)),
+            AppState.AppStatus.Summarizing => new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 47, 128, 237)),
+            AppState.AppStatus.Stopping    => new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 217, 119, 6)),
             AppState.AppStatus.Error       => new SolidColorBrush(Colors.Red),
-            _                              => new SolidColorBrush(Windows.UI.Color.FromArgb(255, 115, 115, 112))
+            _                              => new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 115, 115, 112))
         };
     }
 }

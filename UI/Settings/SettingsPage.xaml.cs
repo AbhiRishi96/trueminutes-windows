@@ -10,7 +10,7 @@ namespace TrueMinutes.Windows.UI.Settings;
 
 public sealed partial class SettingsPage : Page
 {
-    private static readonly AppState State = App.State;
+    private static readonly AppState State = TrueMinutesApp.State;
     private bool _loading = true;
 
     public SettingsPage()
@@ -90,13 +90,13 @@ public sealed partial class SettingsPage : Page
         {
             Text = name, FontSize = 14, FontWeight = Microsoft.UI.Text.FontWeights.Medium,
             Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(
-                Windows.UI.Color.FromArgb(255, 242, 242, 240))
+                global::Windows.UI.Color.FromArgb(255, 242, 242, 240))
         });
         left.Children.Add(new TextBlock
         {
             Text = $"{size} — {desc}", FontSize = 11,
             Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(
-                Windows.UI.Color.FromArgb(255, 168, 168, 164))
+                global::Windows.UI.Color.FromArgb(255, 168, 168, 164))
         });
         Grid.SetColumn(left, 0); grid.Children.Add(left);
 
@@ -108,7 +108,7 @@ public sealed partial class SettingsPage : Page
             {
                 Text = "✓ Selected", FontSize = 11, FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
                 Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(
-                    Windows.UI.Color.FromArgb(255, 15, 138, 78))
+                    global::Windows.UI.Color.FromArgb(255, 15, 138, 78))
             });
         }
         else if (downloaded)
@@ -132,9 +132,9 @@ public sealed partial class SettingsPage : Page
                 Content = $"Download · {size}", Padding = new Thickness(10, 4, 10, 4),
                 CornerRadius = new CornerRadius(6), FontSize = 11,
                 Background = new Microsoft.UI.Xaml.Media.SolidColorBrush(
-                    Windows.UI.Color.FromArgb(255, 32, 26, 58)),
+                    global::Windows.UI.Color.FromArgb(255, 32, 26, 58)),
                 Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(
-                    Windows.UI.Color.FromArgb(255, 110, 86, 247))
+                    global::Windows.UI.Color.FromArgb(255, 110, 86, 247))
             };
             dlBtn.Click += async (_, _) => await DownloadModelAsync(type, dlBtn);
             right.Children.Add(dlBtn);
@@ -146,11 +146,11 @@ public sealed partial class SettingsPage : Page
             Child = grid, Padding = new Thickness(12),
             Background = new Microsoft.UI.Xaml.Media.SolidColorBrush(
                 isSelected
-                    ? Windows.UI.Color.FromArgb(255, 22, 20, 40)
-                    : Windows.UI.Color.FromArgb(255, 26, 26, 38)),
+                    ? global::Windows.UI.Color.FromArgb(255, 22, 20, 40)
+                    : global::Windows.UI.Color.FromArgb(255, 26, 26, 38)),
             CornerRadius = new CornerRadius(8), Margin = new Thickness(0, 2, 0, 2),
             BorderBrush = new Microsoft.UI.Xaml.Media.SolidColorBrush(
-                Windows.UI.Color.FromArgb(255, 51, 51, 68)),
+                global::Windows.UI.Color.FromArgb(255, 51, 51, 68)),
             BorderThickness = new Thickness(1)
         };
     }

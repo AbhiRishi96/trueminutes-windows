@@ -9,7 +9,7 @@ namespace TrueMinutes.Windows.UI.LiveTranscript;
 
 public sealed partial class LiveTranscriptPage : Page
 {
-    private static readonly AppState State = App.State;
+    private static readonly AppState State = TrueMinutesApp.State;
     private DispatcherTimer? _timer;
 
     public LiveTranscriptPage()
@@ -59,7 +59,7 @@ public sealed partial class LiveTranscriptPage : Page
         }
 
         // Auto-scroll to bottom.
-        _ = Dispatcher.TryEnqueue(async () =>
+        _ = DispatcherQueue.TryEnqueue(async () =>
         {
             await Task.Delay(50);
             TranscriptScroll.ChangeView(null, TranscriptScroll.ScrollableHeight, null);
@@ -89,8 +89,8 @@ public sealed partial class LiveTranscriptPage : Page
                 FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
                 CharacterSpacing = 100,
                 Foreground = new SolidColorBrush(para.Speaker == "you"
-                    ? Windows.UI.Color.FromArgb(255, 110, 86, 247)
-                    : Windows.UI.Color.FromArgb(255, 47, 128, 237)),
+                    ? global::Windows.UI.Color.FromArgb(255, 110, 86, 247)
+                    : global::Windows.UI.Color.FromArgb(255, 47, 128, 237)),
                 Margin = new Thickness(0, 8, 0, 0)
             });
         }
@@ -99,7 +99,7 @@ public sealed partial class LiveTranscriptPage : Page
         {
             Text = para.Text,
             FontSize = 14,
-            Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 242, 242, 240)),
+            Foreground = new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 242, 242, 240)),
             TextWrapping = TextWrapping.Wrap,
             LineHeight = 22,
             IsTextSelectionEnabled = true

@@ -11,7 +11,7 @@ namespace TrueMinutes.Windows.UI.Shell;
 
 public sealed partial class MeetingListPage : Page
 {
-    private static readonly AppState State = App.State;
+    private static readonly AppState State = TrueMinutesApp.State;
     private string? _categoryFilter;
 
     public MeetingListPage()
@@ -49,11 +49,11 @@ public sealed partial class MeetingListPage : Page
                 FontSize = 11,
                 FontWeight = Microsoft.UI.Text.FontWeights.Medium,
                 Background = key == _categoryFilter
-                    ? new SolidColorBrush(Windows.UI.Color.FromArgb(255, 110, 86, 247))
-                    : new SolidColorBrush(Windows.UI.Color.FromArgb(255, 26, 26, 38)),
-                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 242, 242, 240)),
+                    ? new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 110, 86, 247))
+                    : new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 26, 26, 38)),
+                Foreground = new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 242, 242, 240)),
                 BorderThickness = new Thickness(1),
-                BorderBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 51, 51, 68)),
+                BorderBrush = new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 51, 51, 68)),
             };
             chip.Click += (_, _) =>
             {
@@ -87,8 +87,7 @@ public sealed partial class MeetingListPage : Page
     {
         var card = new Border
         {
-            Style = (Style)Resources["MeetingRowStyle"],
-            Cursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Hand, 0)
+            Style = (Style)Resources["MeetingRowStyle"]
         };
 
         var grid = new Grid();
@@ -102,7 +101,7 @@ public sealed partial class MeetingListPage : Page
         {
             Text = meeting.Title,
             FontSize = 15, FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
-            Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 242, 242, 240)),
+            Foreground = new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 242, 242, 240)),
             TextTrimming = TextTrimming.CharacterEllipsis
         };
         left.Children.Add(title);
@@ -113,20 +112,20 @@ public sealed partial class MeetingListPage : Page
         {
             Text = meeting.FormattedDate,
             FontSize = 12,
-            Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 168, 168, 164))
+            Foreground = new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 168, 168, 164))
         });
         if (!string.IsNullOrEmpty(meeting.CategoryDisplay))
         {
             meta.Children.Add(new Border
             {
-                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 32, 26, 58)),
+                Background = new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 32, 26, 58)),
                 CornerRadius = new CornerRadius(999),
                 Padding = new Thickness(8, 2, 8, 2),
                 Child = new TextBlock
                 {
                     Text = meeting.CategoryDisplay,
                     FontSize = 9, FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
-                    Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 110, 86, 247))
+                    Foreground = new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 110, 86, 247))
                 }
             });
         }
@@ -165,18 +164,18 @@ public sealed partial class MeetingListPage : Page
 
     private static SolidColorBrush StatusBackground(string status) => status switch
     {
-        "recording"  => new SolidColorBrush(Windows.UI.Color.FromArgb(255, 59, 28, 28)),
-        "ready"      => new SolidColorBrush(Windows.UI.Color.FromArgb(255, 22, 41, 30)),
-        "failed"     => new SolidColorBrush(Windows.UI.Color.FromArgb(255, 59, 23, 21)),
-        _            => new SolidColorBrush(Windows.UI.Color.FromArgb(255, 34, 34, 46))
+        "recording"  => new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 59, 28, 28)),
+        "ready"      => new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 22, 41, 30)),
+        "failed"     => new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 59, 23, 21)),
+        _            => new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 34, 34, 46))
     };
 
     private static SolidColorBrush StatusForeground(string status) => status switch
     {
-        "recording" => new SolidColorBrush(Windows.UI.Color.FromArgb(255, 224, 62, 62)),
-        "ready"     => new SolidColorBrush(Windows.UI.Color.FromArgb(255, 15, 138, 78)),
-        "failed"    => new SolidColorBrush(Windows.UI.Color.FromArgb(255, 180, 35, 24)),
-        _           => new SolidColorBrush(Windows.UI.Color.FromArgb(255, 168, 168, 164))
+        "recording" => new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 224, 62, 62)),
+        "ready"     => new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 15, 138, 78)),
+        "failed"    => new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 180, 35, 24)),
+        _           => new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 168, 168, 164))
     };
 
     private static string StatusLabel(string status, string? summaryStatus) => status switch

@@ -6,7 +6,7 @@ namespace TrueMinutes.Windows.UI.Shell;
 
 public sealed partial class RecordingMiniBar : UserControl
 {
-    private static readonly AppState State = App.State;
+    private static readonly AppState State = TrueMinutesApp.State;
     private DispatcherTimer? _timer;
 
     public RecordingMiniBar()

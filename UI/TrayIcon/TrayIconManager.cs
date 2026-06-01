@@ -25,7 +25,7 @@ public sealed class TrayIconManager : IDisposable
     {
         // Build context menu.
         _contextMenu = new ContextMenuStrip();
-        _contextMenu.Items.Add("Open TrueMinutes",  null, (_, _) => App.ShowMainWindow());
+        _contextMenu.Items.Add("Open TrueMinutes",  null, (_, _) => TrueMinutesApp.ShowMainWindow());
         _contextMenu.Items.Add(new ToolStripSeparator());
         _contextMenu.Items.Add("Stop Recording", null, (_, _) => _ = _state.StopRecordingAsync())
                           .Enabled = false;
@@ -44,7 +44,7 @@ public sealed class TrayIconManager : IDisposable
             Visible         = true,
             ContextMenuStrip = _contextMenu
         };
-        _notifyIcon.DoubleClick += (_, _) => App.ShowMainWindow();
+        _notifyIcon.DoubleClick += (_, _) => TrueMinutesApp.ShowMainWindow();
     }
 
     private void OnStateChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)

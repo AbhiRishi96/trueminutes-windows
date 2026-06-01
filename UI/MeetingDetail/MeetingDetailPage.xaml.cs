@@ -8,9 +8,8 @@ namespace TrueMinutes.Windows.UI.MeetingDetail;
 
 public sealed partial class MeetingDetailPage : Page
 {
-    private static readonly AppState State = App.State;
+    private static readonly AppState State = TrueMinutesApp.State;
     private MeetingRecord? _meeting;
-    private string _currentTab = "Summary";
 
     public MeetingDetailPage()
     {
@@ -51,7 +50,6 @@ public sealed partial class MeetingDetailPage : Page
 
     private void ShowSummaryTab()
     {
-        _currentTab = "Summary";
         SummaryContent.Visibility = Visibility.Visible;
         // TODO: load summary from DB
         SummaryText.Text = _meeting == null
@@ -61,14 +59,12 @@ public sealed partial class MeetingDetailPage : Page
 
     private void ShowTranscriptTab()
     {
-        _currentTab = "Transcript";
         SummaryContent.Visibility = Visibility.Collapsed;
         // TODO: render formatted paragraphs with Clean/Raw toggle
     }
 
     private void ShowNotesTab()
     {
-        _currentTab = "Notes";
         SummaryContent.Visibility = Visibility.Collapsed;
         // TODO: render editable markdown notes
     }
@@ -85,11 +81,15 @@ public sealed partial class MeetingDetailPage : Page
         // TODO: trigger SummarizationService.regenerateSummary
     }
 
-    private void OnCopySummary(object sender, RoutedEventArgs e)
+    private void OnCopySummary(SplitButton sender, SplitButtonClickEventArgs e) => CopySummary();
+
+    private void OnCopySummary(object sender, RoutedEventArgs e) => CopySummary();
+
+    private void CopySummary()
     {
-        var dp = new Windows.ApplicationModel.DataTransfer.DataPackage();
+        var dp = new global::Windows.ApplicationModel.DataTransfer.DataPackage();
         dp.SetText(SummaryText.Text);
-        Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dp);
+        global::Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dp);
     }
 
     private void OnCopyTranscript(object sender, RoutedEventArgs e) { }

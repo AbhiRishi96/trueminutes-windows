@@ -15,6 +15,7 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <WindowsPackageType>None</WindowsPackageType>
     <SelfContained>false</SelfContained>
+    <ImportFrameworkWinFXTargets>true</ImportFrameworkWinFXTargets>
     <!-- WinForms for NotifyIcon system-tray support -->
     <UseWindowsForms>true</UseWindowsForms>
     <!-- WinUI 3 app manifest — required for NotifyIcon and high-DPI awareness -->
@@ -54,6 +55,11 @@
     <!-- Logging -->
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Remove="System.Drawing" />
+    <Using Remove="System.Windows.Forms" />
   </ItemGroup>
 
   <!-- Copy prompts to output directory so they're bundled -->

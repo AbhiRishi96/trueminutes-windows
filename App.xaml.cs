@@ -5,13 +5,13 @@ using TrueMinutes.Windows.UI.TrayIcon;
 
 namespace TrueMinutes.Windows;
 
-public partial class App : Application
+public partial class TrueMinutesApp : Microsoft.UI.Xaml.Application
 {
     public static AppState State { get; } = new();
     private MainWindow? _mainWindow;
     private TrayIconManager? _trayIcon;
 
-    public App()
+    public TrueMinutesApp()
     {
         InitializeComponent();
         RequestedTheme = ApplicationTheme.Dark; // dark-first, matches macOS
@@ -37,7 +37,7 @@ public partial class App : Application
     /// Show (and bring to front) the main window from anywhere.
     public static void ShowMainWindow()
     {
-        var app = (App)Current;
+        var app = (TrueMinutesApp)Current;
         app._mainWindow?.BringToFront();
     }
 }

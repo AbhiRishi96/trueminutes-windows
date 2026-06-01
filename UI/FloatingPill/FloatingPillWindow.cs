@@ -3,6 +3,7 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Shapes;
 using Windows.Graphics;
 
 namespace TrueMinutes.Windows.UI.FloatingPill;
@@ -45,9 +46,9 @@ public sealed class FloatingPillWindow : Window
     {
         var root = new Border
         {
-            Background = new SolidColorBrush(Windows.UI.Color.FromArgb(240, 26, 26, 38)),
+            Background = new SolidColorBrush(global::Windows.UI.Color.FromArgb(240, 26, 26, 38)),
             CornerRadius = new CornerRadius(999),
-            BorderBrush  = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 224, 62, 62)),
+            BorderBrush  = new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 224, 62, 62)),
             BorderThickness = new Thickness(1),
             Padding = new Thickness(16, 0, 12, 0),
         };
@@ -57,7 +58,7 @@ public sealed class FloatingPillWindow : Window
 
         // Pulsing dot
         var dot = new Ellipse { Width = 8, Height = 8,
-            Fill = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 224, 62, 62)) };
+            Fill = new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 224, 62, 62)) };
         row.Children.Add(dot);
 
         // Elapsed time
@@ -65,7 +66,7 @@ public sealed class FloatingPillWindow : Window
         {
             Text = "0:00", FontSize = 13, FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
             FontFamily = new FontFamily("Consolas"),
-            Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 242, 242, 240)),
+            Foreground = new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 242, 242, 240)),
             VerticalAlignment = VerticalAlignment.Center
         };
         row.Children.Add(_timeLabel);
@@ -75,11 +76,11 @@ public sealed class FloatingPillWindow : Window
         {
             Content = "■", FontSize = 12, Padding = new Thickness(8, 4, 8, 4),
             CornerRadius = new CornerRadius(6),
-            Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 224, 62, 62)),
-            Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 255, 255, 255)),
+            Background = new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 224, 62, 62)),
+            Foreground = new SolidColorBrush(global::Windows.UI.Color.FromArgb(255, 255, 255, 255)),
             VerticalAlignment = VerticalAlignment.Center
         };
-        stop.Click += (_, _) => _ = App.State.StopRecordingAsync();
+        stop.Click += (_, _) => _ = TrueMinutesApp.State.StopRecordingAsync();
         row.Children.Add(stop);
 
         root.Child = row;
@@ -105,7 +106,7 @@ public sealed class FloatingPillWindow : Window
         Activate();
     }
 
-    private async Task PulseDotAsync(Windows.UI.Xaml.Shapes.Ellipse dot)
+    private async Task PulseDotAsync(Microsoft.UI.Xaml.Shapes.Ellipse dot)
     {
         while (AppWindow != null)
         {
