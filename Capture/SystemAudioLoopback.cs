@@ -15,7 +15,6 @@ namespace TrueMinutes.Windows.Capture;
 public sealed class SystemAudioLoopback : IDisposable
 {
     private WasapiLoopbackCapture? _capture;
-    private WaveInProvider? _waveInProvider;
     private readonly AudioChunker _chunker;
     private bool _running;
 
